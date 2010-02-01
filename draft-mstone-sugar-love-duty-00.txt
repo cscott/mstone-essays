@@ -1,0 +1,214 @@
+% Love, Duty, and Sugar
+% January 31, 2010
+% Michael Stone <michael@laptop.org>
+
+# Introduction
+
+This is a short essay on what I think Sugar ought to become. It is intended to
+explain how Sugar ought to evolve and to motivate you to join me in remaking it.
+
+# Teaching and Learning
+
+When I first met him, Walter laid out a compelling vision for Sugar. This
+vision, which I think many of you share, talked about two basic principles
+relating learning and doing:
+
+  1. you learn through doing, so if you want more learning you want more doing;
+
+  2. love is a better master than duty—you want people to engage in things that
+     are authentic to them, things that they love.
+
+These are powerful principles. They both explain my dissatisfaction with my
+current relationship with Sugar and they suggest the kernel of a remedy. 
+
+# Dissatisfactions
+
+I've been a long-term fan of the *vision* for the Sugar user experience as it
+was described to me by Walter, Ivan, and others. However, as everyone who knows
+me can attest, I've also been [deeply][] [skeptical][] of the technical and
+social approach that has been used to pursue this user experience. 
+
+Basically, these facets of Sugar aren't authentic for me. I don't love them.
+Consequently, I've stayed away from Sugar's core for three years, working on
+the outside on security, build tools, release management, deployment issues,
+networking, and small UI tweaks.
+
+Unfortunately, most of the good people who created the Sugar we have today no
+longer seem to be working on making the Sugar of tomorrow. It seems that, for
+them too, working on Sugar became more a matter of duty than of love.
+
+It seems that we need a Sugar that we can love.
+
+# Remedies
+
+## Technical Approach
+
+Sugar needs a architect for its technical approach. Unfortunately, the two best
+candidates I've met (Ivan and Scott) are, so far as I know, unavailable. That
+means that the job falls to me, until someone more capable comes along. 
+
+To that end, I'll be writing more in coming weeks on the architecture we ought
+to be pursuing. However, for today, here are a couple of tidbits to whet your
+appetite:
+
+  1. Sugar should be smaller and faster. This requires three things:
+
+       a) using low-overhead tools, 
+       b) computing only what you need only when you need it, and
+       c) making UI changes which aid rewriting big, slow code.
+  
+     At the language level, this means that we should begin replacing our Python
+     code, widget-by-widget and screen-by-screen, with kernel-style C (where
+     compiled code is appropriate) and with Lua (where interpreted code is
+     appropriate).
+
+       [edit: cjb requests justification here. justification to follow in
+       subsequent drafts.]
+
+  2. Sugar should support a lower floor and a higher ceiling via the following
+     three approaches:
+  
+       a) by replacing ineffective UI affordances (like palettes),
+       b) by replacing contorted workflows (e.g. for file handling, initiating
+          collaboration, and publishing work), and 
+       c) by experimenting with a UI that grows, as the user does, by unlocking
+          new screens, tools, and commands and by recording and communicating
+          these achievements.
+
+  3. Sugar should use standard protocols and implementations for
+     internetworking, naming, and file transfer. My [Network2][network2]
+     paper gives a good, if still incomplete, overview of how to approach this
+     problem.
+
+  4. Sugar should interoperate with POSIX utilities and libraries, as described
+     by Scott in his Journal2 and olpcfs2 work.
+
+  5. Sugar should be language-neutral with respect to activities. In practice,
+     this means providing sugar functionality via C shared libraries and
+     external processes since these are the easiest ways to work with external
+     code in most languages.
+
+  6. Sugar should be built out of independently testable, scriptable components
+     with minimal dependencies.
+
+  7. Building and installing Sugar from source should be require no more than
+     four lines of code on any modern Linux desktop and should depend only on
+     commonly packaged software.
+
+## Social Approach
+
+Sugar has an existing social approach which has produced some notable
+successes. Unfortunately, it works very poorly for me, largely because of its
+decisionmaking overhead and default choices.
+ 
+Here are some changes to the social approach which would work better for me:
+
+  1. I coordinate by email. Therefore, if you want to talk to me or if you
+     want me to examine your work, please email me. I'll write back.
+
+  2. I look for people who take the position, as I do, that "if something was
+     important enough for you to build, then it's important enough for me to
+     offer feedback on and, if I like it, to merge it." 
+
+  3. Like anyone, I occasionally get swamped. Keep poking me gently and I'll
+     get back to you soon.
+
+  4. Experiments are good. We need to do more of them, they need to be better
+     reported, and they need to be more rigorous. 
+
+  5. In general, if we have two serious ideas for how to do something, we are
+     better off working together to *try them both* than we are dismissing the
+     second idea. We'll learn more, and we need the practice.
+
+  6. We need to be more willing to fix old mistakes, even at the cost of
+     breaking software. The promise that we should make is to work
+     together to fix the broken software. We *must* fix our mistakes.
+
+  7. We need to worry less about making regular releases than about making
+     software that delivers our intended user experience. Continuing to release
+     bad software helps no one, damages us, and damages our brand.
+
+# Conclusion
+
+If, indeed, we learn by doing and learn best when motivated by love (rather
+than duty) then it would behoove us to make the praxis of Sugar development
+lovable and active. 
+
+I've begun this work for myself in [my Sugar clone][m_sugar]:
+
+  * by unifying the many separate Sugar source repos (currently including
+    sugar, sugar-toolkit, sugar-base, sugar-artwork, sugar-datastore, and
+    sugar-presence-service) into one,
+
+  * by "autoliberating" the build system (replacing it with a single short
+    ./configure script and Makefile), and
+
+  * by nuking 10kloc of presence-service, thus creating a fun experimental
+    branch (creatively named "kill-ps").
+
+Care to join me?
+
+# References
+
+[m_sugar]: git://dev.laptop.org/git/users/mstone/sugar
+[deeply]: http://lists.sugarlabs.org/archive/sugar-devel/2008-July/007441.html
+[skeptical]: http://lists.sugarlabs.org/archive/iaep/2009-July/007415.html
+[network2]: http://wiki.laptop.org/go/Network2/Paper
+
+# Requests for Improvement
+
+1. cjb requests justification of the rewriting and language change suggestions
+in the note on speed. 
+
+2. cjb requests more information about how to replace bad code and what to
+replace it with than about what code is bad.
+
+3. martin_xs requests more emphasis on "Polish and Compelling Features". 
+
+4. martin_xs is very focused on short-term improvements for sugar-0.84 and
+would like to know how that might fit in here.
+
+5. mstone needs to say more about the motivation provided by Gary's list of
+unappreciated efforts:
+
+    Manu's "SocialCalc on Sugar - Developers' Guide and Opportunity for Developers and Content Creators"
+    Bert's "Low-level Activity API" (needs a hand fixing up wiki move)
+    An email ticket from Sayamindu about a gettext issue with the Clock activity Gary adopted
+    Martin's "Touchpad accel, spirals and xset"
+    Sascha's "Try out version support NOW"
+    James "Several chapters of "Make Your Own Sugar Activities!" ready for review, feedback"
+    Justin's "File Share Activity" (still needs more feedback and better design)
+    Michael's "ANN: rainbow-0.8.6 release." along with the wiki pages for installing
+    Simon's "Opportunity: Getting involved, maintaining the Write Activity" Gary: should backport old toolbar support
+    Bernie's "PATCH: add a delete all function to physics" Gary: I'm getting a little behind on physics work
+    Simon's "...labyrinth...a verb?" thread, still no decision so will likely let this slip
+    Sascha's "Examples in Journal (#1585)"
+    Simon's "Fructose - What is it? What should it be?" seems to have fallen off the 0.88 radar
+    Wade's "[ANNOUNCE] Sugargame v1.0" need to test and give feedback
+    Wades "#1447 NORM: Display a message when an  activity fails to start" this really needs to ship!
+    Lucian's "Keep offline for Browse (offline bookmarks)" patch
+    Richard's "OOM conditions" (see if Maemo's kernel patches can help us)
+
+6. mstone needs to say a word or two about Lua's virtues. Notable
+virtues include:
+
+    a) Lua goes big (Blizzard WoW, Adobe Lightroom) as well as small (OpenWRT:
+       4Mb of flash!). People who have used it in anger (like the tech lead for
+       Lightroom recommended it strongly for further use.)
+
+    b) Lua JITs well: http://luajit.org. 
+   
+       LuaJIT beats the pants off of Python:
+
+           http://shootout.alioth.debian.org/u32/benchmark.php?test=all&lang=luajit&lang2=python
+
+       and does well vs. C:
+
+           http://shootout.alioth.debian.org/u32/benchmark.php?test=all&lang=luajit&lang2=gcc
+
+       Also, it's good enough that Google is independently ponying up to support
+       the author of LuaJIT.
+
+    c) Lua is the only mainstream programming language that originates from
+       South America. (Brazil, in this case.)
+
